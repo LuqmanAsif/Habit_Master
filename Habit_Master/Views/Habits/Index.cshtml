@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Habit_Master.Models.Habit_>
+
+@{
+    ViewBag.Title = "Index";
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Habit_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Habit_Check)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Habit_Description)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Habit_Check)*@
+            @if (item.Habit_Check)
+            {
+                <input type="checkbox" class="form-check" checked="checked" id="habitcheckid1" onchange="Habit_CheckChange1('@item.Habit_Id')" />
+            }
+            else
+            {
+                <input type="checkbox" class="form-check" id="habitcheckid2" onchange="Habit_CheckChange2('@item.Habit_Id')" />
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Habit_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Habit_Id })
+        </td>
+    </tr>
+}
+</table>
