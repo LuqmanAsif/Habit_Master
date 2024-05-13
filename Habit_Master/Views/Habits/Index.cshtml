@@ -17,26 +17,65 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Habit_Description)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.Habit_Check)*@
-            @if (item.Habit_Check)
-            {
-                <input type="checkbox" class="form-check" checked="checked" id="habitcheckid1" onchange="Habit_CheckChange1('@item.Habit_Id')" />
-            }
-            else
-            {
-                <input type="checkbox" class="form-check" id="habitcheckid2" onchange="Habit_CheckChange2('@item.Habit_Id')" />
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Habit_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Habit_Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Habit_Description)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Habit_Check)*@
+                @if (item.Habit_Check)
+                {
+                    <input type="checkbox" class="form-check" checked="checked" id="habitcheckid1" onchange="Habit_CheckChange1('@item.Habit_Id')" />
+                }
+                else
+                {
+                    <input type="checkbox" class="form-check" id="habitcheckid2" onchange="Habit_CheckChange2('@item.Habit_Id')" />
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Habit_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Habit_Id })
+            </td>
+        </tr>
+    }
 </table>
+@section Scripts {
+    <script type="text/javascript">
+        function Habit_CheckChange1(id) {
+            debugger
+            var ischecked = $('#habitcheckid1').prop('checked');
+            $.ajax({
+                url: '@Url.Action("UpdateHabitCheck", "Habits")',
+                type: 'POST',
+                data: { id: id, isChecked: ischecked },
+                success: function (response) {
+                    // Handle success if needed
+                    console.log('Update successful');
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+        }
+        function Habit_CheckChange2(id) {
+            debugger
+            var ischecked = $('#habitcheckid2').prop('checked');
+            $.ajax({
+                url: '@Url.Action("UpdateHabitCheck", "Habits")',
+                type: 'POST',
+                data: { id: id, isChecked: ischecked },
+                success: function (response) {
+                    // Handle success if needed
+                    console.log('Update successful');
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+}

@@ -27,13 +27,33 @@ namespace Habit_Master.Controllers
         {
             DBManager db = new DBManager();
             db.SaveHabit(h);
-            return View("Index");
+            return RedirectToAction("Index");
         }
-        public ActionResult Edit(int Habit_id)
+        public ActionResult Edit(int? id)
         {
             DBManager obj = new DBManager();
-            Habit_ habit = obj.Gethabit(Habit_id);
+            Habit_ habit = obj.Gethabit(id);
             return View(habit);
+        }
+        [HttpPost]
+        public ActionResult Edit(Habit_ habit_)
+        {
+            DBManager obj = new DBManager();
+            obj.Update(habit_.Habit_Id,habit_);
+            return RedirectToAction("Index");
+        }
+        public ActionResult Delete(int? id)
+        {
+            DBManager obj = new DBManager();
+            obj.Delete_Habit(id);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult UpdateHabitCheck(int id, bool isChecked)
+        {
+            DBManager obj = new DBManager();
+            obj.Update_HabitCheck(id, isChecked);
+            return Json(new { success = true });
         }
 
 

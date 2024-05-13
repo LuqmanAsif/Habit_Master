@@ -56,7 +56,7 @@ namespace Habit_Master.Models
                 throw e;
             }
         }
-        public Habit_ Gethabit(int habit_id)
+        public Habit_ Gethabit(int? habit_id)
         {
             try
             {
@@ -117,11 +117,11 @@ namespace Habit_Master.Models
                 throw e;
             }
         }
-        public void Delete_Habit(int habit_id)
+        public void Delete_Habit(int? habit_id)
         {
             try
             {
-                string query = "delete * from HabitMaster where Habit_Id='" + habit_id + "'";
+                string query = "delete from HabitMaster where Habit_Id='" + habit_id + "'";
                 SqlConnection con = new SqlConnection(connectionString);
                 con.Open();
                 SqlCommand cmd = new SqlCommand(query, con);
